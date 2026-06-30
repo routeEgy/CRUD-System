@@ -56,11 +56,15 @@ function displayList( list ) {
         <div class="inner position-relative rounded shadow overflow-hidden">
 
           <div class="position-absolute top-0 end-0 m-3 d-flex gap-1">
-            <span class="fa-stack fa-1x icon">
+            <span onclick="incrementPrice(${i})" class="fa-stack fa-1x icon">
               <i class="fa-solid text-white fa-circle fa-stack-2x"></i>
-              <i class="fa-solid text-danger fa-trash fa-stack-1x fa-inverse"></i>
+              <i class="fa-solid text-info fa-plus fa-stack-1x fa-inverse"></i>
             </span>
-            <span class="fa-stack fa-1x icon">
+            <span onclick="deleteProduct(${i})" class="fa-stack fa-1x icon">
+              <i class="fa-solid text-white fa-circle fa-stack-2x"></i>
+              <i class="fa-solid text-info fa-trash fa-stack-1x fa-inverse"></i>
+            </span>
+            <span onclick="setupFormToUpdate(${i})" class="fa-stack fa-1x icon">
               <i class="fa-solid text-white fa-circle fa-stack-2x"></i>
               <i class="fa-solid text-primary fa-pen fa-stack-1x fa-inverse"></i>
             </span>
@@ -70,7 +74,7 @@ function displayList( list ) {
             src="https://fastly.picsum.photos/id/355/600/600.jpg?hmac=AZDDU8kuG3ZJHqaK2qmadQJuorh_MPX_vbwSSJNJs1E"
             alt="">
           <div class="p-2">
-            <h2>${  list[i].name }</h2>
+            <h2>i${i}${  list[i].name }</h2>
             <p>
               ${list[i].desc}
             </p>
@@ -91,6 +95,39 @@ function displayList( list ) {
 };
 
 
-function deleteUpdate() {  }
-function updateUpdate() {  }
-function searchUpdate() {  }
+
+
+
+function deleteProduct (index) {
+//    onclick trash icon ,,, index !
+    pList.splice(index , 1);
+    displayList(pList)
+    localStorage.setItem('products' , JSON.stringify(pList));
+
+    // reload local storage
+    
+}
+
+function incrementPrice (index) {
+//    onclick trash icon ,,, index !
+    pList[index].price = Number(pList[index].price) + 1 ;
+    displayList(pList)
+    localStorage.setItem('products' , JSON.stringify(pList));
+
+    // reload local storage
+    
+}
+
+function setupFormToUpdate(index) {
+    console.log("hiiii" , index);
+    document.getElementById('updateBtn').classList.remove('d-none')
+    document.getElementById('addBtn').classList.add('d-none')
+    
+  }
+
+
+  function updateProduct() {
+     document.getElementById('updateBtn').classList.add('d-none')
+    document.getElementById('addBtn').classList.remove('d-none')
+    
+  }
